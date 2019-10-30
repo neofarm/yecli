@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import sys
 
 DISCOGRAPHY = []
@@ -37,7 +39,7 @@ def resultify_verbose_counts(song_counts, album_counts):
     return result
 
 def main():
-    if "main.py" in sys.argv: sys.argv.remove("main.py") #for easy debugging
+    if "ye.py" in sys.argv: sys.argv.remove("ye.py") #for easy debugging
     load()
     if len(sys.argv) != 3 :
         print(sys.argv)
