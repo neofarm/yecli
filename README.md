@@ -10,3 +10,9 @@ The unofficial command-line interface to all things Yeezy.
 #### Verbose word frequency
 `./ye.py HEH! <search-word>`
 
+#### Sort by number of words in song (Ascending)
+`./ye.py vision asc`
+
+#### Sort by number of words in song (Descending)
+`./ye.py vision desc`
+
