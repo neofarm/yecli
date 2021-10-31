@@ -61,6 +61,10 @@ def rando_song(args):
     validate_arg_count(args, 1)
     return "Not implemented yet!"
 
+def rando_song_verbose(args):
+    validate_arg_count(args, 1)
+    return "Not implemented yet!"
+
 def validate_arg_count(args, expected) :
     if len(args) != expected :
         print(sys.argv)
@@ -73,11 +77,12 @@ def main():
     vtable = { "heh"    : occurrences,
                "HEH!"   : occurrences_verbose,
                "huh"    : rando_song,
+               "HUH!"   : rando_song_verbose,
                "vision" : order_songs_by_word_count } 
 
 
     print(vtable[sys.argv[0]](sys.argv))
-    if sys.argv[0] not in ["heh","HEH!","huh","vision"]:
+    if sys.argv[0] not in ["heh","HEH!","huh","HUH!","vision"]:
         print("Unrecognized command: '" + sys.argv[0] + "'")
         sys.exit(1)
 
