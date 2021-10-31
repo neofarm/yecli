@@ -57,8 +57,12 @@ def resultify_verbose_counts(song_counts, album_counts):
             result += "   " + s + ": " + str(o) + "\n"
     return result
 
+def rando_song(args):
+    validate_arg_count(args, 1)
+    return "Not implemented yet!"
+
 def validate_arg_count(args, expected) :
-    if len(args) != 2 :
+    if len(args) != expected :
         print(sys.argv)
         print("Wrong number of arguments specified")
         sys.exit(1)
@@ -68,11 +72,12 @@ def main():
     load()
     vtable = { "heh"    : occurrences,
                "HEH!"   : occurrences_verbose,
+               "huh"    : rando_song,
                "vision" : order_songs_by_word_count } 
 
 
     print(vtable[sys.argv[0]](sys.argv))
-    if sys.argv[0] not in ["heh","HEH!","vision"]:
+    if sys.argv[0] not in ["heh","HEH!","huh","vision"]:
         print("Unrecognized command: '" + sys.argv[0] + "'")
         sys.exit(1)
 
