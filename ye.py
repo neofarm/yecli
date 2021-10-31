@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import sys
+import random
 
 DISCOGRAPHY = []
 
@@ -59,10 +60,12 @@ def resultify_verbose_counts(song_counts, album_counts):
 
 def rando_song(args):
     validate_arg_count(args, 1)
-    return "Not implemented yet!"
+    album,song,_,_ = random.choice(DISCOGRAPHY)
+    return f"{song} - {album}"
 
 def rando_song_verbose(args):
     validate_arg_count(args, 1)
+    # TODO: add track number and release date
     return "Not implemented yet!"
 
 def validate_arg_count(args, expected) :
