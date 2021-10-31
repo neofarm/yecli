@@ -13,14 +13,18 @@ def load():
             item = (raw[0], raw[1], lyrics, word_count)
             DISCOGRAPHY.append(item)
 
-def occurrences(word):
+def occurrences(args):
+    validate_arg_count(args, 2)
+    word = args[1]
     full_text = " ".join(
         [d for d in [l for a, s, l, c in DISCOGRAPHY]]
     ).lower()
     count = full_text.count(word.lower())
     return count
 
-def occurrences_verbose(word):
+def occurrences_verbose(args):
+    validate_arg_count(args, 2)
+    word = args[1]
     song_counts = [] #[album_name, song_name, count]
     album_counts = {} #{album_name: count}
     for a, s, l, c in DISCOGRAPHY:
@@ -32,7 +36,9 @@ def occurrences_verbose(word):
             else: album_counts[a] = song_occurance
     return resultify_verbose_counts(song_counts, album_counts)
 
-def order_songs_by_word_count(order):
+def order_songs_by_word_count(args):
+    validate_arg_count(args, 2)
+    order = args[1]
     sort_asc = order.lower() == 'asc'
     sorted_songs = sorted(DISCOGRAPHY, key=lambda x: x[3], reverse=not sort_asc)
     return resultify_ordered_songs(sorted_songs)
@@ -51,22 +57,23 @@ def resultify_verbose_counts(song_counts, album_counts):
             result += "   " + s + ": " + str(o) + "\n"
     return result
 
-def main():
-    #if "ye.py" in sys.argv: sys.argv.remove("ye.py") #for easy debugging
-    load()
-    if len(sys.argv) != 3 :
+def validate_arg_count(args, expected) :
+    if len(args) != 2 :
         print(sys.argv)
         print("Wrong number of arguments specified")
         sys.exit(1)
 
-    if "heh" in sys.argv[1]:
-        print(occurrences(sys.argv[2]))
-    elif "HEH!" in sys.argv[1]:
-        print(occurrences_verbose(sys.argv[2]))
-    elif "vision" in sys.argv[1]:
-        print(order_songs_by_word_count(sys.argv[2]))
-    else:
-        print("Unrecognized command: '" + sys.argv[3] + "'")
+def main():
+    sys.argv = sys.argv[1:]
+    load()
+    vtable = { "heh"    : occurrences,
+               "HEH!"   : occurrences_verbose,
+               "vision" : order_songs_by_word_count } 
+
+
+    print(vtable[sys.argv[0]](sys.argv))
+    if sys.argv[0] not in ["heh","HEH!","vision"]:
+        print("Unrecognized command: '" + sys.argv[0] + "'")
         sys.exit(1)
 
 if __name__ == "__main__":
